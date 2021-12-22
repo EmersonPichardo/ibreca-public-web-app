@@ -10,7 +10,7 @@ import BlogEntriesList from './pages/blog/entries/list/blogEntriesList';
 import BlogEntriesDetails from './pages/blog/entries/details/blogEntriesDetails';
 
 import './index.css';
-import 'antd/dist/antd.css';
+import './styles/css/antd.css';
 
 ReactDOM.render(
   <React.StrictMode>
