@@ -1,33 +1,34 @@
-import { Outlet } from 'react-router-dom';
-import { Layout, Menu, Breadcrumb } from 'antd';
+import { Link, Outlet } from 'react-router-dom';
+import { Layout, Menu } from 'antd';
 
 import './_layout.css';
 
-const { Header, Content, Footer } = Layout;
+const { Header, Footer } = Layout;
 
 export default function _Layout() {
-    return (
-        <Layout className="layout">
-            <Header>
-                <div className="logo" />
-                <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']}>
-                    {new Array(15).fill(null).map((_, index) => {
-                        const key = index + 1;
-                        return <Menu.Item key={key}>{`nav ${key}`}</Menu.Item>;
-                    })}
-                </Menu>
-            </Header>
-            <Content style={{ padding: '0 50px' }}>
-                <Breadcrumb style={{ margin: '16px 0' }}>
-                    <Breadcrumb.Item>Home</Breadcrumb.Item>
-                    <Breadcrumb.Item>List</Breadcrumb.Item>
-                    <Breadcrumb.Item>App</Breadcrumb.Item>
-                </Breadcrumb>
-                <div className="site-layout-content">
-                    <Outlet />
-                </div>
-            </Content>
-            <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
-        </Layout>
-    );
+  return (
+    <Layout>
+      <Header className="layout-header">
+        <img className="logo" src="images/Logo sin letas - sin fondo.png" />
+
+        <Menu className="layout-menu" mode="horizontal" defaultSelectedKeys={['home']}>
+          <Menu.Item key="home">
+            <Link to="/">Home</Link>
+          </Menu.Item>
+          <Menu.Item key="home2">
+            <Link to="/">Home</Link>
+          </Menu.Item>
+          <Menu.Item key="home3">
+            <Link to="/">Home</Link>
+          </Menu.Item>
+        </Menu>
+      </Header>
+
+      <Outlet />
+
+      <Footer className="layout-footer">
+        Ant Design ©2018 Created by Ant UED
+      </Footer>
+    </Layout>
+  );
 }

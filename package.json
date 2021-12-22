@@ -17,7 +17,7 @@
     "start": "lessc \"src/styles/antd.less\" \"src/styles/css/antd.css\" --js && react-scripts start",
     "build": "lessc \"src/styles/antd.less\" \"src/styles/css/antd.css\" --js && react-scripts build",
     "test": "lessc \"src/styles/antd.less\" \"src/styles/css/antd.css\" --js && react-scripts test",
-    "eject": "lessc react-scripts eject"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [

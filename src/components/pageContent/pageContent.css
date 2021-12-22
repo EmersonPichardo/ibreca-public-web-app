@@ -1,0 +1,11 @@
+.page-content {
+    margin-top: 64px;
+    padding: 16px 64px;
+  }
+  
+  .page-content-outlet {
+    padding: 24px;
+    margin-top: 16px;
+    background-color: white;
+  }
+  

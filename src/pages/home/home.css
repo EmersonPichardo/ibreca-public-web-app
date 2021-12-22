@@ -1,0 +1,19 @@
+.home-content {
+}
+
+.home-main-image {
+  width: calc(100% + 128px);
+  margin-top: -200px;
+  margin-left: -128px;
+}
+
+.home-content-outlet {
+  position: relative;
+  padding: 24px;
+  top: -200px;
+  margin-bottom: -200px;
+  min-height: 200px;
+  background-color: white;
+  box-shadow: 0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 6px 16px 0 rgba(0, 0, 0, 0.08),
+  0 9px 28px 8px rgba(0, 0, 0, 0.05);
+}

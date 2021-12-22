@@ -1,0 +1,23 @@
+.layout-header {
+  position: fixed;
+  width: 100%;
+  background-color: transparent !important;
+  z-index: 1;
+}
+
+.logo {
+  float: left;
+  height: 52px;
+  margin-top: 6px;
+  margin-right: 64px;
+}
+
+.layout-menu {
+  justify-content: flex-end;
+  background-color: transparent !important;
+  border-bottom: none !important;
+}
+
+.layout-footer {
+  text-align: center;
+}
