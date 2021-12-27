@@ -13,18 +13,16 @@ import './index.css';
 import './styles/css/antd.css';
 
 ReactDOM.render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<_Layout />}>
-          <Route index element={<Home />} />
-          <Route path="blog/entries" element={<BlogEntriesList />} />
-          <Route path="blog/entries/{id}" element={<BlogEntriesDetails />} />
+  <BrowserRouter>
+    <Routes>
+      <Route path="/" element={<_Layout />}>
+        <Route index element={<Home />} />
+        <Route path="blog/entries" element={<BlogEntriesList />} />
+        <Route path="blog/entries/{id}" element={<BlogEntriesDetails />} />
 
-          <Route path="*" element={<Result />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
-  </React.StrictMode>,
+        <Route path="*" element={<Result />} />
+      </Route>
+    </Routes>
+  </BrowserRouter>,
   document.getElementById('root')
 );

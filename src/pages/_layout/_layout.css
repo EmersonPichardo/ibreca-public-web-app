@@ -1,7 +1,7 @@
 .layout-header {
   position: fixed;
   width: 100%;
-  background-color: transparent !important;
+  background-color: rgba(0, 0, 0, 0.5) !important;
   z-index: 1;
 }
 

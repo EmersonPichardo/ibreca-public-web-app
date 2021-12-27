@@ -1,5 +1,6 @@
 import { Link, Outlet } from 'react-router-dom';
 import { Layout, Menu } from 'antd';
+import { HomeOutlined } from '@ant-design/icons';
 
 import './_layout.css';
 
@@ -11,14 +12,14 @@ export default function _Layout() {
       <Header className="layout-header">
         <img className="logo" src="images/Logo sin letas - sin fondo.png" />
 
-        <Menu className="layout-menu" mode="horizontal" defaultSelectedKeys={['home']}>
-          <Menu.Item key="home">
+        <Menu className="layout-menu" mode="horizontal" theme="dark" defaultSelectedKeys={['home']}>
+          <Menu.Item key="home" icon={<HomeOutlined />}>
             <Link to="/">Home</Link>
           </Menu.Item>
-          <Menu.Item key="home2">
-            <Link to="/">Home</Link>
+          <Menu.Item key="predicas">
+            <Link to="/">Prédicas</Link>
           </Menu.Item>
-          <Menu.Item key="home3">
+          <Menu.Item key="historia">
             <Link to="/">Home</Link>
           </Menu.Item>
         </Menu>
