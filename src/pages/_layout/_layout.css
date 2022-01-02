@@ -1,21 +1,23 @@
 .layout-header {
+  display: flex;
+  justify-content: space-between;
   position: fixed;
   width: 100%;
-  background-color: rgba(0, 0, 0, 0.5) !important;
+  height: 80px !important;
+  line-height: 80px !important;
+  background-color: white !important;
+  box-shadow: 0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 6px 16px 0 rgba(0, 0, 0, 0.08),
+  0 9px 28px 8px rgba(0, 0, 0, 0.05);
   z-index: 1;
 }
 
 .logo {
-  float: left;
-  height: 52px;
-  margin-top: 6px;
-  margin-right: 64px;
+  align-self: center;
+  height: 96px;
 }
 
 .layout-menu {
   justify-content: flex-end;
-  background-color: transparent !important;
-  border-bottom: none !important;
 }
 
 .layout-footer {

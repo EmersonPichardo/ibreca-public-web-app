@@ -1,59 +1,54 @@
-import { useEffect, useState } from "react";
-
-import { Carousel, Col, Image, Layout, Row, Typography } from "antd";
+import { Carousel, Col, Grid, Image, Layout, Row, Typography } from "antd";
 import { Parallax } from "react-parallax";
 
 import "./home.css";
 
+const { useBreakpoint } = Grid;
 const { Content } = Layout;
 const { Title } = Typography;
 
 export default function Home() {
+  const screens = useBreakpoint();
+
+  document.title = 'Inicio - IBRECA';
+
   const images = [
-    "images/Logo con fondo azul cropped.PNG",
-    "images/Logo con fondo azul.PNG",
-    "images/Logo sin letas - sin fondo.png",
-    "images/Logo sin siglas.png",
-    "images/Logo con fondo azul.PNG",
-    "images/Logo sin letas - sin fondo.png",
-    "images/Logo sin siglas.png"
+    "/images/Logo con fondo azul cropped.PNG",
+    "/images/Logo con fondo azul.PNG",
+    "/images/Logo sin letas - sin fondo.png",
+    "/images/Logo sin siglas.png",
+    "/images/Logo con fondo azul.PNG",
+    "/images/Logo sin letas - sin fondo.png",
+    "/images/Logo sin siglas.png"
   ]
 
   return (
     <Content>
-      <Parallax bgImage="images/ibreca -fondo.png">
-        <div className="home-parallax-welcome" style={{ marginTop: '80px' }}>
+      <Parallax bgImage="/images/ibreca -fondo.png" blur={4}>
+        <div className="home-parallax-welcome">
           <Row justify="center" gutter={[16, 0]}>
             <Col xs={6} sm={5} md={4} xl={3} xxl={1}>
-              <img width={'100%'} src="images/Logo sin letas - sin fondo.png" />
+              <img className="home-icon" src="/images/Logo sin letas - sin fondo.png" />
             </Col>
             <Col span={24}>
-              <Title className="home-title">Iglesia Bautista Redención en la "Caleta"</Title>
+              <Title className={`home-title ${!screens['md'] ? 'mobile' : undefined}`}>Iglesia Bautista Redención en la "Caleta"</Title>
             </Col>
             <Col span={24}>
-              <Title level={2} className="home-subtitle">IBRECA</Title>
+              <Title level={2} className={`home-subtitle ${!screens['md'] ? 'mobile' : undefined}`}>IBRECA</Title>
             </Col>
           </Row>
 
           <div>
             <Row justify="center" gutter={16}>
-              <Col xs={24} md={20} xl={14} xxl={12}>
+              <Col xs={20} xl={14} xxl={12}>
                 <Carousel
-                  className="home-carousel"
+                  className={`home-carousel ${!screens['md'] ? 'mobile' : undefined}`}
                   autoplay
                   draggable={true}
                   swipeToSlide={true}
                   infinite
-                  slidesToShow={3}
+                  slidesToShow={screens['md'] ? 3 : 2}
                   dots={{ className: "home-carousel-dots" }}
-                  responsive={[
-                    {
-                      breakpoint: 680,
-                      settings: {
-                        slidesToShow: 2
-                      }
-                    }
-                  ]}
                 >
                   {
                     images.map((src, index) => {

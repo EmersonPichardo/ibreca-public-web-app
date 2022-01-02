@@ -1,11 +1,27 @@
+.page-parallax-content {
+  padding-top: 80px;
+  padding-bottom: 64px;
+  background-color: rgba(0, 0, 0, 0.25);
+}
+
+.page-title {
+  color: white !important;
+  font-size: 64px !important;
+  line-height: calc(50vh - 80px) !important;
+  margin: 0px !important;
+  text-shadow: rgba(0, 0, 0, 0.25) 0px 4px 5px;
+  text-align: center;
+}
+
 .page-content {
-    margin-top: 64px;
-    padding: 16px 64px;
-  }
-  
-  .page-content-outlet {
-    padding: 24px;
-    margin-top: 16px;
-    background-color: white;
-  }
-  
+  margin-top: -64px;
+  margin-bottom: -64px;
+  z-index: 0;
+}
+
+.page-content-outlet {
+  padding: 16px;
+  background-color: white;
+  box-shadow: 0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 6px 16px 0 rgba(0, 0, 0, 0.08),
+  0 9px 28px 8px rgba(0, 0, 0, 0.05);
+}

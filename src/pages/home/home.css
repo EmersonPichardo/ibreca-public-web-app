@@ -1,6 +1,12 @@
 .home-parallax-welcome {
-  padding: 32px 16px;
+  margin-top: 80px;
   text-align: center;
+  background-color: rgba(0, 0, 0, 0.25);
+}
+
+.home-icon {
+  width: 100%;
+  margin-top: 32px;
 }
 
 .home-title {
@@ -11,6 +17,11 @@
   text-shadow: rgba(0, 0, 0, 0.65) 0px 4px 5px;
 }
 
+  .home-title.mobile {
+    font-size: 36px !important;
+    margin: 16px 8px 0px 8px !important;
+  }
+
 .home-subtitle {
   color: #ed1c24 !important;
   font-size: 48px !important;
@@ -19,11 +30,20 @@
   text-shadow: rgba(0, 0, 0, 0.65) 0px 4px 5px;
 }
 
+  .home-subtitle.mobile {
+    font-size: 28px !important;
+  }
+
 .home-carousel {
+  margin: 16px 0px;
   background-color: rgba(0, 0, 0, 0.5);
   box-shadow: 0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 6px 16px 0 rgba(0, 0, 0, 0.08),
   0 9px 28px 8px rgba(0, 0, 0, 0.05);
 }
+
+  .home-carousel.mobile {
+    margin: 8px 0px;
+  }
 
 .home-carousel-dots {
   bottom: -8px !important;
@@ -34,12 +54,16 @@
   padding-bottom: 16px;
 }
 
-.ant-image {
-  height: 96px;
-}
+  .home-carousel-image .ant-image {
+    height: 96px;
+  }
+
+    .home-carousel.mobile .home-carousel-image .ant-image {
+      height: 64px;
+    }
 
   .home-carousel-image img {
-    height: 96px;
+    height: inherit;
     width: auto;
   }
 
