@@ -22,3 +22,7 @@
   font-size: 18px;
   text-align: justify;
 }
+
+  .blog-details-body.sm {
+    font-size: 16px;
+  }

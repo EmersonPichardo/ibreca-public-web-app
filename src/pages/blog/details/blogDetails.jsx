@@ -45,7 +45,7 @@ export default function BlogDetails() {
         if (screens['xl']) return '';
         if (screens['lg']) return 'lg';
         if (screens['md']) return 'md';
-        if (screens['sm']) return 'sm';
+        return 'sm';
     }
 
     return (
@@ -59,7 +59,7 @@ export default function BlogDetails() {
                         </div>
                     )
                 }
-                <Paragraph className="blog-details-body"><div dangerouslySetInnerHTML={{ __html: entry.body }} /></Paragraph>
+                <Paragraph className={`blog-details-body ${getClass()}`}><div dangerouslySetInnerHTML={{ __html: entry.body }} /></Paragraph>
             </div>
         </PageContent>
     );
