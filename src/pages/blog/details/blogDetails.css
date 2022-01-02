@@ -1,3 +1,24 @@
+.blog-details-content {
+  padding: 32px 128px;
+}
+
+  .blog-details-content.lg {
+    padding: 32px 96px;
+  }
+
+  .blog-details-content.md {
+    padding: 32px 64px;
+  }
+
+  .blog-details-content.sm {
+    padding: 16px 32px;
+  }
+
+.blog-details-header {
+  margin: 8px 0px 32px 0px;
+}
+
 .blog-details-body {
   font-size: 18px;
+  text-align: justify;
 }

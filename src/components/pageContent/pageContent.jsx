@@ -18,7 +18,7 @@ export default function PageContent(props) {
 
         <Content className="page-content">
             <Row justify="center">
-                <Col xs={22} sm={18} lg={16} xl={14} xxl={12}>
+                <Col xs={22} sm={19} lg={17} xl={15} xxl={13}>
                     <div className="page-content-outlet">
                         {children}
                     </div>

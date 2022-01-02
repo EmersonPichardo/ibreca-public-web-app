@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import { useNavigate, useParams } from 'react-router-dom';
-import { message, Typography } from 'antd';
+import { Grid, message, Typography } from 'antd';
 import moment from "moment";
 import 'moment/locale/es';
 
@@ -11,10 +11,12 @@ import Player from '../../../components/player/player';
 
 import './blogDetails.css'
 
+const { useBreakpoint } = Grid;
 const { Paragraph } = Typography;
 
 export default function BlogDetails() {
     const { id } = useParams();
+    const screens = useBreakpoint();
     const navigate = useNavigate();
 
     const [entry, setEntry] = useState({});
@@ -39,11 +41,26 @@ export default function BlogDetails() {
             });
     }, [])
 
+    const getClass = () => {
+        if (screens['xl']) return '';
+        if (screens['lg']) return 'lg';
+        if (screens['md']) return 'md';
+        if (screens['sm']) return 'sm';
+    }
+
     return (
         <PageContent image={entry.coverUrl} title={entry.title}>
-            <Paragraph type="secondary">{moment(entry.publicationDate).format('DD [de] MMMM [del] YYYY')}</Paragraph>
-            {entry.headerUrl ? <Player url={entry.headerUrl} /> : <></>}
-            <Paragraph className="blog-details-body">{entry.body}</Paragraph>
+            <div className={`blog-details-content ${getClass()}`}>
+                <Paragraph type="secondary">{moment(entry.publicationDate).format('DD [de] MMMM [del] YYYY')}</Paragraph>
+                {!entry.headerUrl ? <></> :
+                    (
+                        <div className="blog-details-header">
+                            <Player url={entry.headerUrl} />
+                        </div>
+                    )
+                }
+                <Paragraph className="blog-details-body"><div dangerouslySetInnerHTML={{ __html: entry.body }} /></Paragraph>
+            </div>
         </PageContent>
     );
 }

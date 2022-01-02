@@ -156,7 +156,8 @@ export default function BlogList() {
                                     <Card hoverable cover={<ImageDisplayer src={entry.coverUrl} />} >
                                         <Text type="secondary">{moment(entry.publicationDate).format('DD MMM YYYY')}</Text>
                                         <Title level={4}>{entry.title}</Title>
-                                        <Paragraph type="secondary" ellipsis={{ rows: 2 }}>{entry.body}</Paragraph>
+                                        <Paragraph type="secondary" ellipsis={{ rows: 2 }}>
+                                            <div dangerouslySetInnerHTML={{ __html: entry.body }} /></Paragraph>
                                     </Card>
                                 </Link>
                             </Col>
