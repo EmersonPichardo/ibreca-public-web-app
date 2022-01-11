@@ -23,6 +23,7 @@ export default function BlogList() {
     const [entries, setEntries] = useState([]);
     const [page, setPage] = useState(0);
     const [hasMore, setHasMore] = useState(true);
+    const [totalLength, setTotalLength] = useState(0);
     const [filters, setFilters] = useState({});
     const [index, setIndex] = useState({});
 
@@ -40,6 +41,7 @@ export default function BlogList() {
                 response.json().then(data => {
                     if (response.ok) {
                         setPage(page + 1);
+                        setTotalLength(data.totalLength);
                         setHasMore(data.hasMore);
                         setEntries([...entries, ...data.list]);
                     } else {
@@ -114,7 +116,7 @@ export default function BlogList() {
             </Form>
 
             <Text type="secondary" style={{ display: 'block', margin: '8px 0px' }}>
-                {`Mostrando ${entries.length} resultados`}
+                {`Mostrando ${totalLength} resultados`}
             </Text>
 
             <InfiniteScroll
@@ -123,7 +125,7 @@ export default function BlogList() {
                 hasMore={hasMore}
                 scrollableTarget="container"
                 loader={
-                    <Row gutter={[64, 64]}>{
+                    <Row gutter={[32, 32]}>{
                         Array.from({ length: 2 }).map((_, index) => {
                             return (
                                 <Col xs={24} md={12} key={index}>
@@ -155,9 +157,10 @@ export default function BlogList() {
                                 <Link to={`/blog/${entry.id}`}>
                                     <Card hoverable cover={<ImageDisplayer src={entry.coverUrl} />} >
                                         <Text type="secondary">{moment(entry.publicationDate).format('DD MMM YYYY')}</Text>
-                                        <Title level={4}>{entry.title}</Title>
+                                        <Title level={4} style={{ marginTop: '0.5em' }}>{entry.title}</Title>
                                         <Paragraph type="secondary" ellipsis={{ rows: 2 }}>
-                                            <div dangerouslySetInnerHTML={{ __html: entry.body }} /></Paragraph>
+                                            <div dangerouslySetInnerHTML={{ __html: entry.body }} />
+                                        </Paragraph>
                                     </Card>
                                 </Link>
                             </Col>

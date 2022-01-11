@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import { useNavigate, useParams } from 'react-router-dom';
-import { Grid, message, Typography } from 'antd';
+import { Grid, PageHeader, Skeleton, Typography } from 'antd';
 import moment from "moment";
 import 'moment/locale/es';
 
@@ -32,12 +32,14 @@ export default function BlogDetails() {
                         setEntry(data);
                         setLoading(false);
                     } else {
-                        message.error(data.title);
+                        console.error(data.title);
+                        navigate('/blog');
                     }
                 })
             })
             .catch((error) => {
-                message.error(error.message);
+                console.error(error.message);
+                navigate('/blog');
             });
     }, [])
 
@@ -49,18 +51,27 @@ export default function BlogDetails() {
     }
 
     return (
-        <PageContent image={entry.coverUrl} title={entry.title}>
+        <PageContent loading={loading} image={entry.coverUrl} title={entry.title}>
             <div className={`blog-details-content ${getClass()}`}>
-                <Paragraph type="secondary">{moment(entry.publicationDate).format('DD [de] MMMM [del] YYYY')}</Paragraph>
+                <PageHeader className="blog-details-back" onBack={() => navigate('/blog')} title="Volver" />
+
+                <Skeleton loading={loading} title={{ width: 150 }} paragraph={false}>
+                    <Paragraph type="secondary">{moment(entry.publicationDate).format('DD [de] MMMM [del] YYYY')}</Paragraph>
+                </Skeleton>
+
                 {!entry.headerUrl ? <></> :
                     (
                         <div className="blog-details-header">
-                            <Player url={entry.headerUrl} />
+                            <Player url={entry.headerUrl} loading={loading} />
                         </div>
                     )
                 }
-                <Paragraph className={`blog-details-body ${getClass()}`}><div dangerouslySetInnerHTML={{ __html: entry.body }} /></Paragraph>
+
+                <Skeleton loading={loading} paragraph={{ rows: 14 }}>
+                    <Paragraph className={`blog-details-body ${getClass()}`}><div dangerouslySetInnerHTML={{ __html: entry.body }} /></Paragraph>
+                </Skeleton>
+
             </div>
-        </PageContent>
+        </PageContent >
     );
 }

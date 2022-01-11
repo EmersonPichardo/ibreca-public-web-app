@@ -1,4 +1,6 @@
-import { Col, Grid, Layout, Row, Typography } from 'antd';
+import { useEffect } from 'react';
+
+import { Col, Grid, Layout, Row, Skeleton, Typography } from 'antd';
 import { Parallax } from 'react-parallax';
 
 import './pageContent.css';
@@ -8,7 +10,7 @@ const { Content } = Layout;
 const { Title } = Typography;
 
 export default function PageContent(props) {
-    const { image, title, children } = props;
+    const { loading, image, title, children } = props;
     const screens = useBreakpoint();
 
     const getClass = () => {
@@ -18,10 +20,20 @@ export default function PageContent(props) {
         return 'sm';
     }
 
+    useEffect(() => {
+        document.title = `${loading ? 'cargando...' : title} - IBRECA`;
+        window.scrollTo(0, 0);
+    }, [title, loading])
+
     return (<>
-        <Parallax bgImage={image ?? "/images/ibreca -fondo.png"} strength={-128} blur={4} >
+        <Parallax bgImage={(loading ? <Skeleton.Image active /> : image) ?? "/images/ibreca -fondo.png"} strength={-128} blur={4} >
             <div className="page-parallax-content">
-                <Title className={`page-title ${getClass()}`}>{title}</Title>
+
+                {loading ? (
+                    <Skeleton.Input active style={{ width: '50%', height: 64, transform: 'translateX(50%)' }} />
+                ) : (
+                    <Title className={`page-title ${getClass()}`}>{title}</Title>
+                )}
             </div>
         </Parallax>
 

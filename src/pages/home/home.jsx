@@ -1,30 +1,87 @@
-import { Carousel, Col, Grid, Image, Layout, Row, Typography } from "antd";
+import { useState, useEffect } from "react";
+
+import { Link } from "react-router-dom";
+import { Card, Carousel, Col, Divider, Grid, Image, Layout, List, Row, Typography } from "antd";
+import { NotificationOutlined, CalendarOutlined, ClockCircleOutlined } from '@ant-design/icons';
 import { Parallax } from "react-parallax";
+import moment from "moment";
+import 'moment/locale/es';
+
+import AnnouncementsService from "../../services/apiServices/announcementsService";
+import BlogEntriesService from "../../services/apiServices/blogEntriesService";
+import ImageDisplayer from "../../components/imagedisplayer/imagedisplayer";
 
 import "./home.css";
 
 const { useBreakpoint } = Grid;
 const { Content } = Layout;
-const { Title } = Typography;
+const { Title, Text, Paragraph } = Typography;
+
+const services = [
+  {
+    name: 'Oración y discipulado',
+    day: 'Martes',
+    since: '7:00 PM',
+    until: '8:00 PM'
+  },
+  {
+    name: 'Estudio bíblico',
+    day: 'Jueves',
+    since: '7:00 PM',
+    until: '8:00 PM'
+  },
+  {
+    name: 'Escuela dominical',
+    day: 'Domingo',
+    since: '10:00 AM',
+    until: '11:00 AM'
+  },
+  {
+    name: 'Culto de adoración*',
+    day: 'Domingo',
+    since: '11:00 AM',
+    until: '12:00 AM'
+  }
+];
 
 export default function Home() {
   const screens = useBreakpoint();
 
-  document.title = 'Inicio - IBRECA';
+  const [announcements, setAnnouncements] = useState([]);
+  const [entries, setEntries] = useState([]);
 
-  const images = [
-    "/images/Logo con fondo azul cropped.PNG",
-    "/images/Logo con fondo azul.PNG",
-    "/images/Logo sin letas - sin fondo.png",
-    "/images/Logo sin siglas.png",
-    "/images/Logo con fondo azul.PNG",
-    "/images/Logo sin letas - sin fondo.png",
-    "/images/Logo sin siglas.png"
-  ]
+  useEffect(() => {
+    document.title = 'Inicio - IBRECA';
+
+    Promise.all([
+      AnnouncementsService.GetAll(),
+      BlogEntriesService.GetRecents()
+    ])
+      .then(([announcementResponse, blogEntriesResponse]) => {
+        announcementResponse.json().then(data => {
+          if (announcementResponse.ok) {
+            setAnnouncements(data);
+          } else {
+            console.error(data?.title);
+          }
+        })
+
+        blogEntriesResponse.json().then(data => {
+          if (blogEntriesResponse.ok) {
+            setEntries(data);
+          } else {
+            console.error(data?.title);
+          }
+        })
+      })
+      .catch((errors) => {
+        console.error(errors)
+      });
+  }, [])
 
   return (
     <Content>
-      <Parallax bgImage="/images/ibreca -fondo.png" blur={4}>
+      <Parallax bgImage="/images/ibreca -fondo.png">
         <div className="home-parallax-welcome">
           <Row justify="center" gutter={[16, 0]}>
             <Col xs={6} sm={5} md={4} xl={3} xxl={1}>
@@ -37,34 +94,119 @@ export default function Home() {
               <Title level={2} className={`home-subtitle ${!screens['md'] ? 'mobile' : undefined}`}>IBRECA</Title>
             </Col>
           </Row>
-
-          <div>
-            <Row justify="center" gutter={16}>
-              <Col xs={20} xl={14} xxl={12}>
-                <Carousel
-                  className={`home-carousel ${!screens['md'] ? 'mobile' : undefined}`}
-                  autoplay
-                  draggable={true}
-                  swipeToSlide={true}
-                  infinite
-                  slidesToShow={screens['md'] ? 3 : 2}
-                  dots={{ className: "home-carousel-dots" }}
-                >
-                  {
-                    images.map((src, index) => {
-                      return (
-                        <div key={index} className="home-carousel-image">
-                          <Image src={src} />
-                        </div>
-                      )
-                    })
-                  }
-                </Carousel>
-              </Col>
-            </Row>
-          </div>
         </div>
       </Parallax>
+
+      {!announcements.length ? <></> : (
+        <section className="home-section primary">
+          <div style={{ margin: "0px 32px" }}>
+            <div className="home-section-title-container primary">
+              <Title className="home-section-title primary">Anuncios</Title>
+
+              <div className="home-section-icon-container">
+                <NotificationOutlined className="home-section-icon" />
+              </div>
+            </div>
+          </div>
+
+          <Row justify="center" gutter={16}>
+            <Col xs={22} xl={19} xxl={12}>
+              <Carousel
+                className={`home-carousel ${!screens['md'] ? 'mobile' : undefined}`}
+                draggable={true}
+                swipeToSlide={true}
+                infinite
+                slidesToShow={
+                  screens['md']
+                    ? (announcements.length < 2 ? announcements.length : 2)
+                    : (announcements.length < 1 ? announcements.length : 1)
+                }
+                dots={{ className: "home-carousel-dots" }}
+              >
+                {
+                  announcements.map((announcement, index) => {
+                    return (
+                      <div key={index} className="home-carousel-image">
+                        <Image alt={announcement.title} src={announcement.url} />
+                      </div>
+                    )
+                  })
+                }
+              </Carousel>
+            </Col>
+          </Row>
+        </section>
+      )}
+
+      <section className="home-section">
+        <div style={{ margin: "0px 32px" }}>
+          <div className="home-section-title-container">
+            <Title className="home-section-title" type="danger">Servicios</Title>
+
+            <div className="home-section-icon-container">
+              <CalendarOutlined className="home-section-icon" />
+            </div>
+          </div>
+        </div>
+
+        <List
+          itemLayout="vertical"
+          size="large"
+          dataSource={services}
+          footer={
+            <Paragraph italic strong type="danger" style={{ textAlign: "center" }}>
+              *Primer domingo de cada mes el culto de adoración empieza a las 6:30 PM
+            </Paragraph>
+          }
+          renderItem={(item, index) => (
+            <List.Item key={index} className="home-service-list-item">
+              <p className="home-service-extra">{item.day}</p>
+
+              <div style={{ width: "calc(100% - 256px)", textAlign: "center", margin: "auto" }}>
+                <Title className="home-service-title">{item.name}</Title>
+                <Title level={5}>
+                  <Divider style={{ margin: 0 }}><ClockCircleOutlined /></Divider>
+                  {item.since} - {item.until}
+                </Title>
+              </div>
+            </List.Item>
+          )}
+        />
+      </section>
+
+      {!announcements.length ? <></> : (
+        <section className="home-section primary">
+          <div style={{ margin: "0px 32px" }}>
+            <div className="home-section-title-container primary">
+              <Title className="home-section-title primary">Servicios</Title>
+
+              <div className="home-section-icon-container">
+                <CalendarOutlined className="home-section-icon" />
+              </div>
+            </div>
+          </div>
+
+          <div style={{ padding: "32px", margin: "0px auto", backgroundColor: "white", maxWidth: 900 }}>
+            <Row gutter={[32, 32]} justify="center">
+              {entries.map(entry => {
+                return (
+                  <Col span="8" key={entry.id}>
+                    <Link to={`/blog/${entry.id}`}>
+                      <Card hoverable cover={<ImageDisplayer src={entry.coverUrl} />} >
+                        <Text type="secondary">{moment(entry.publicationDate).format('DD MMM YYYY')}</Text>
+                        <Paragraph type="secondary" ellipsis={{ rows: 2 }}>
+                          <Title level={4} style={{ marginTop: '0.5em' }}>{entry.title}</Title>
+                        </Paragraph>
+                      </Card>
+                    </Link>
+                  </Col>
+                );
+              })}
+            </Row>
+          </div>
+        </section>
+      )}
+
     </Content >
   );
 }
