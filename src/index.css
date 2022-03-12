@@ -1,3 +1,13 @@
+::selection {
+  color: #0f1d3b !important;
+  background: #d9d9d9 !important;
+}
+
+::-moz-selection {
+  color: #0f1d3b !important;
+  background: #d9d9d9 !important;
+}
+
 html {
   scroll-behavior: smooth;
 }
@@ -9,7 +19,6 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #f0f2f5 !important;
 }
 
 code {

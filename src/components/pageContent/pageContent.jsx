@@ -10,7 +10,7 @@ const { Content } = Layout;
 const { Title } = Typography;
 
 export default function PageContent(props) {
-    const { loading, image, title, children } = props;
+    const { loading, image, title, backgroundColor, children } = props;
     const screens = useBreakpoint();
 
     const getClass = () => {
@@ -21,7 +21,7 @@ export default function PageContent(props) {
     }
 
     useEffect(() => {
-        document.title = `${loading ? 'cargando...' : title} - IBRECA`;
+        document.title = `${loading ? 'cargando...' : title} | ibreca.org`;
         window.scrollTo(0, 0);
     }, [title, loading])
 
@@ -40,7 +40,7 @@ export default function PageContent(props) {
         <Content className="page-content">
             <Row justify="center">
                 <Col xs={22} sm={19} lg={17} xl={15} xxl={13}>
-                    <div className="page-content-outlet">
+                    <div className="page-content-outlet" style={{ backgroundColor: backgroundColor ?? "white" }}>
                         {children}
                     </div>
                 </Col>

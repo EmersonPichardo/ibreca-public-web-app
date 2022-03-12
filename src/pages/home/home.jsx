@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 
 import { Link } from "react-router-dom";
-import { Card, Carousel, Col, Divider, Grid, Image, Layout, List, Row, Typography } from "antd";
-import { NotificationOutlined, CalendarOutlined, ClockCircleOutlined } from '@ant-design/icons';
+import { Card, Carousel, Col, Divider, Grid, Image, Layout, List, Row, Space, Typography } from "antd";
+import { DoubleRightOutlined, CalendarOutlined, ClockCircleOutlined } from '@ant-design/icons';
 import { Parallax } from "react-parallax";
 import moment from "moment";
 import 'moment/locale/es';
@@ -49,9 +49,10 @@ export default function Home() {
 
   const [announcements, setAnnouncements] = useState([]);
   const [entries, setEntries] = useState([]);
+  const [hasScroll, setHasScroll] = useState(false);
 
   useEffect(() => {
-    document.title = 'Inicio - IBRECA';
+    document.title = 'Inicio | ibreca.org';
 
     Promise.all([
       AnnouncementsService.GetAll(),
@@ -60,7 +61,7 @@ export default function Home() {
       .then(([announcementResponse, blogEntriesResponse]) => {
         announcementResponse.json().then(data => {
           if (announcementResponse.ok) {
-            setAnnouncements(data);
+            setAnnouncements([...data, ...data, ...data, ...data, ...data, ...data, ...data]);
           } else {
             console.error(data?.title);
           }
@@ -77,6 +78,17 @@ export default function Home() {
       .catch((errors) => {
         console.error(errors)
       });
+
+    const scrollFunction = () => {
+      setHasScroll(true);
+      window.removeEventListener('scroll', scrollFunction, { capture: true, passive: true });
+    }
+
+    window.addEventListener('scroll', scrollFunction, { capture: true, passive: true });
+
+    return () => {
+      window.removeEventListener('scroll', scrollFunction, { capture: true, passive: true });
+    }
   }, [])
 
   return (
@@ -94,21 +106,19 @@ export default function Home() {
               <Title level={2} className={`home-subtitle ${!screens['md'] ? 'mobile' : undefined}`}>IBRECA</Title>
             </Col>
           </Row>
+
+          <Title level={3} type="secondary" className={`home-scroll ${hasScroll ? 'hidden' : ''}`}>
+            <Space size="large">
+              <DoubleRightOutlined className="rotate" />
+              Ver más
+              <DoubleRightOutlined className="rotate" />
+            </Space>
+          </Title>
         </div>
       </Parallax>
 
       {!announcements.length ? <></> : (
-        <section className="home-section primary">
-          <div style={{ margin: "0px 32px" }}>
-            <div className="home-section-title-container primary">
-              <Title className="home-section-title primary">Anuncios</Title>
-
-              <div className="home-section-icon-container">
-                <NotificationOutlined className="home-section-icon" />
-              </div>
-            </div>
-          </div>
-
+        <section className="home-section">
           <Row justify="center" gutter={16}>
             <Col xs={22} xl={19} xxl={12}>
               <Carousel
@@ -118,8 +128,8 @@ export default function Home() {
                 infinite
                 slidesToShow={
                   screens['md']
-                    ? (announcements.length < 2 ? announcements.length : 2)
-                    : (announcements.length < 1 ? announcements.length : 1)
+                    ? (announcements.length < 3 ? announcements.length : 3)
+                    : (announcements.length < 2 ? announcements.length : 2)
                 }
                 dots={{ className: "home-carousel-dots" }}
               >
@@ -174,11 +184,11 @@ export default function Home() {
         />
       </section>
 
-      {!announcements.length ? <></> : (
+      {!entries.length ? <></> : (
         <section className="home-section primary">
           <div style={{ margin: "0px 32px" }}>
             <div className="home-section-title-container primary">
-              <Title className="home-section-title primary">Servicios</Title>
+              <Title className="home-section-title primary">Blog</Title>
 
               <div className="home-section-icon-container">
                 <CalendarOutlined className="home-section-icon" />

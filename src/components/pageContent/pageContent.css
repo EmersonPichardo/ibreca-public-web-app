@@ -30,7 +30,7 @@
 .page-content {
   margin-top: -64px;
   margin-bottom: -64px;
-  z-index: 0;
+  z-index: 1;
 }
 
 .page-content-outlet {

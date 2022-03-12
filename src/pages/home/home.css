@@ -2,6 +2,7 @@
   margin-top: 80px;
   text-align: center;
   background-color: rgba(0, 0, 0, 0.25);
+  min-height: calc(100vh - 80px);
 }
 
 .home-icon {
@@ -26,13 +27,41 @@
   color: #ed1c24 !important;
   font-size: 48px !important;
   font-weight: 100 !important;
-  margin-bottom: 164px !important;
+  margin-bottom: 156px !important;
   text-shadow: rgba(0, 0, 0, 0.65) 0px 4px 5px;
 }
 
   .home-subtitle.mobile {
     font-size: 28px !important;
   }
+
+
+@keyframes pointDown {
+  from {
+    transform: rotate(90deg) translateX(0px);
+    opacity: 1;
+  }
+  to {
+    transform: rotate(90deg) translateX(25px);
+    opacity: 0;
+  }
+}
+
+.home-scroll.hidden {
+  opacity: 1;
+  transition: all 0.25s;
+}
+
+.home-scroll.hidden {
+  opacity: 0;
+}
+
+.home-scroll .rotate {
+  transform: rotate(90deg);
+  animation-name: pointDown;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+}
 
 .home-section {
   padding-left: 16px;
@@ -76,6 +105,10 @@
   }
 
 .home-section-icon-container {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -89,8 +122,8 @@
 }
 
 .home-carousel {
-  margin: 0px;
-  background-color: rgba(255, 255, 255, 0.75);
+  margin: 64px 0px 0px 0px;
+  background-color: #0f1d3b;
   box-shadow: 0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 6px 16px 0 rgba(0, 0, 0, 0.08), 0 9px 28px 8px rgba(0, 0, 0, 0.05);
   border: 1px solid #0f1d3b;
 }

@@ -6,6 +6,10 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import _Layout from './pages/_layout/_layout';
 import NotFound from './pages/notFound/notFound';
 import Home from './pages/home/home';
+import History from './pages/us/history/history';
+import MisionVision from './pages/us/mision&vision/mision&vision';
+import OurFaith from './pages/us/ourFaith/ourFaith';
+import VisitUs from './pages/visitUs/visitUs';
 import BlogList from './pages/blog/list/blogList';
 import BlogDetails from './pages/blog/details/blogDetails';
 
@@ -17,6 +21,10 @@ ReactDOM.render(
     <Routes>
       <Route path="/" element={<_Layout />}>
         <Route index element={<Home />} />
+        <Route path="/nosotros/historia" element={<History />} />
+        <Route path="/nosotros/mision-y-vision" element={<MisionVision />} />
+        <Route path="/nosotros/declaracion-de-fe" element={<OurFaith />} />
+        <Route path="/visitanos" element={<VisitUs />} />
         <Route path="/blog/" element={<BlogList />} />
         <Route path="/blog/:id" element={<BlogDetails />} />
 
