@@ -39,7 +39,7 @@ export default function PageContent(props) {
 
         <Content className="page-content">
             <Row justify="center">
-                <Col xs={22} sm={19} lg={17} xl={15} xxl={13}>
+                <Col xs={22} sm={19} lg={17} xl={16}>
                     <div className="page-content-outlet" style={{ backgroundColor: backgroundColor ?? "white" }}>
                         {children}
                     </div>
