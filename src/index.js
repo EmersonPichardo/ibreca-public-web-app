@@ -14,7 +14,6 @@ import BlogList from './pages/blog/list/blogList';
 import BlogDetails from './pages/blog/details/blogDetails';
 
 import './index.css';
-import './styles/css/antd.css';
 
 ReactDOM.render(
   <BrowserRouter>
